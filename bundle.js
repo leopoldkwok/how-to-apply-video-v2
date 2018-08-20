@@ -1,13 +1,56 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var $ = require('jquery')
 
-// var button = require('./buttons/button.js')
+/* Get iframe src attribute value i.e. YouTube video url
+and store it in a variable */
+let url = $("#maxfactorVideo").attr('src');
+console.log('url: ', url);
 
-// $('body').append(button);
+/* Remove iframe src attribute on page load to
+prevent autoplay in background */
+$("#maxfactorVideo").attr('src', '');
 
 document.querySelector('.js-static-modal-toggle').addEventListener('click', function() {
     new Modal({el: document.getElementById('static-modal')}).show();
+      /* Assign the initially stored url back to the iframe src
+      attribute when modal is displayed */
+      $("#maxfactorVideo").attr('src', url);
+      console.log('url again:', url);
   });
+
+  /* Assign empty url value to the iframe src attribute when
+  modal hide, which stop the video playing */
+  $("#static-modal").on('hide.bs.modal', function(){
+    $("#maxfactorVideo").attr('src', '');
+  });
+
+// Get modal element
+let modal = document.getElementById('static-modal');
+
+// Get close button
+let closeBtn = document.getElementsByClassName('close')[0];
+
+// Listen for close click
+closeBtn.addEventListener('click', closeModal);
+
+// Listen for outside click
+window.addEventListener('click', outsideClick);
+
+// Function to close modal
+function closeModal() {
+    modal.style.display = 'none';
+    $("#maxfactorVideo").attr('src', '');
+    console.log("x clicked on to close");
+}
+
+// Function to close modal if outside click
+function outsideClick(e) {
+    if(e.target == modal) {
+        $("#maxfactorVideo").attr('src', '');
+        console.log('it worked');
+    }
+}
+
 },{"jquery":2}],2:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.3.1
