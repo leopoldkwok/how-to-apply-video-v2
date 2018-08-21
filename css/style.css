@@ -8,7 +8,7 @@ body {
 
 .modal-body {
     position:relative;
-    padding: 0px;
+    padding: 0;
   }
 
 .close {
@@ -28,4 +28,8 @@ body {
 
 .modal-dialog {
     max-width: 562px;
+}
+
+.modal {
+    top: 25%;
 }
